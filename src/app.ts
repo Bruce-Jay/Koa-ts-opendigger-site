@@ -3,6 +3,7 @@ import koa from "koa";
 import logger from "koa-logger";
 import json from "koa-json";
 import bodyParser from "koa-bodyparser";
+import cors from "koa2-cors";
 
 import userRouter from "./routes/userRoutes";
 
@@ -16,6 +17,13 @@ app.use(bodyParser());
 
 // use routes
 app.use(userRouter.routes()).use(userRouter.allowedMethods());
+
+// 配置跨域
+app.use(cors({
+    origin: "http://localhost:3007", // 前端地址
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // 设置所允许的HTTP请求方法
+    credentials: true, // 标示该响应是合法的
+}))
 
 //监听端口
 app.listen(3006, () => {
