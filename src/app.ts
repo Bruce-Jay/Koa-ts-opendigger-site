@@ -20,9 +20,9 @@ app.use(userRouter.routes()).use(userRouter.allowedMethods());
 
 // 配置跨域
 app.use(cors({
-    origin: "http://localhost:3007", // 前端地址
+    origin: "*", // 前端地址
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // 设置所允许的HTTP请求方法
-    credentials: true, // 标示该响应是合法的
+    // credentials: true, // 标示该响应是合法的
 }))
 
 //监听端口
