@@ -9,6 +9,7 @@ import userRouter from "./routes/userRoutes";
 
 const app = new koa();
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 //配置中间件
 app.use(json());

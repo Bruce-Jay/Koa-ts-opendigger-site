@@ -29,13 +29,28 @@ const users = [{ id: 1, username: "123", password: "123" }];
 // 处理表单提交
 userRouter.post("/submit", async (ctx: any, next: any) => {
     const formData = ctx.request.body;
-    console.log(formData);
-    const repository = formData.repository; 
+    const repository = formData.repository;
+    const user = formData.user;
+    
     const metric = formData.metric;
-    const { data } = await axios.get(baseUrl + `${repository}/${metric}.json`);
+    let allData: any[] = []
+    if (repository) {
+        metric.map(async (item: any) => {
+            const { data } = await axios.get(baseUrl + `${user}/${item}.json`);
+            allData.push(data)
+        })
+        ctx.status = 200;
+        ctx.body = allData;
+    } else {
+        
+        metric.map(async (item: any) => {
+            const { data } = await axios.get(baseUrl + `${user}/${item}.json`);
+            allData.push(data)
+        })
+        ctx.status = 200;
+        ctx.body = allData;
+    }
 
-    ctx.status = 200;
-    ctx.body = data;
 });
 
 userRouter.post("/loginVerify", async (ctx: any) => {
